@@ -1,4 +1,12 @@
-<h1><%=@topic.title %></h1>
-<p>List links here</p>
-<%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-success' %>
-<%= link_to "Delete Topic", @topic, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this topic?'} %>
+  <h1><%=@topic.title %></h1>
+  <%= link_to "Add Bookmark", new_topic_bookmark_path(@topic), class: 'btn btn-success' %>
+  <% @topic.bookmarks.each do |b|%>
+    <h4><a href="http://<%=b.url %>"><%=b.description%></a>
+      <%= link_to b.url, class: "my-link" do %>
+        <%=b.description%>
+      <% end %>
+    <%= link_to "Edit Bookmark", edit_topic_bookmark_path(b.topic, b), class: 'btn btn-success' %>
+  <%= link_to "Delete Bookmark", [b.topic, b], method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this topic?'} %></h4>
+  <%end%>
+  <%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-success' %>
+  <%= link_to "Delete Topic", @topic, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this topic?'} %>

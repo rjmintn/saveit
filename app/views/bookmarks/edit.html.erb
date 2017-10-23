@@ -1,0 +1,14 @@
+<h1>Edit bookmark</h1>
+<%= form_for [@bookmark.topic, @bookmark] do |f| %>
+  <div class="form-group">
+
+    <%= f.text_field :url, class: 'form-control', placeholder: "Enter URL" %>
+  </div>
+  <div class="form-group">
+
+    <%= f.text_field :description, class: 'form-control', placeholder: "Enter a description" %>
+  </div>
+  <%= f.submit "Save", class: 'btn btn-success' %>
+
+<% end %>
+      <%= link_to "Delete bookmark", @bookmark, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this bookmark?'} %>
