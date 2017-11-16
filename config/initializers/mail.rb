@@ -10,3 +10,15 @@ ActionMailer::Base.smtp_settings = {
 
 ActionMailer::Base.delivery_method = :smtp_settings
 ActionMailer::Base.raise_delivery_errors = true
+
+class DevelopmentMailInterceptor
+  def self.delivering_email(message)
+    message.to =  'testemail@saveit-rjm.herokuapp.com'
+    message.cc = nil
+    message.bcc = nil
+  end
+end
+
+if Rails.env.development?
+  ActionMailer::Base.register_interceptor(DevelopmentMailInterceptor)
+end
