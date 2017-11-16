@@ -8,8 +8,20 @@ class IncomingController < ApplicationController
   # build and save a new bookmark
   def create
     puts "incoming params here: #{params}"
+    @user = params[:sender]
+    @topic = params[:subject]
+    @url = params["body-plain"]
 
+    if @user = User.where(email: @user).first
+
+    end 
     head 200
+
+  end
+
+  def create_bookmark
+    @bookmark_contoller = BookmarksController.new
+    @topic_controller = TopicsController.new
 
   end
 end
