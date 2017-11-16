@@ -7,14 +7,12 @@ class BookmarksController < ApplicationController
 
   def new
     @bookmark = Bookmark.new
-    @topic = Topic.find(params[:topic_id])
   end
 
   def edit
   end
 
   def create
-    @topic = Topic.find(params[:topic_id])
     @bookmark = @topic.bookmarks.build(bookmark_params)
     @bookmark.user = current_user
     if @bookmark.save
@@ -32,22 +30,21 @@ class BookmarksController < ApplicationController
 
   def destroy
     if @bookmark.destroy
-  flash[:notice] = "Bookmark was deleted successfully."
-  redirect_to @topic
-else
-  flash.now[:alert] = "There was an error deleting the bookmark."
-  render :show
-end
+      flash[:notice] = "Bookmark was deleted successfully."
+      redirect_to @topic
+    else
+      flash.now[:alert] = "There was an error deleting the bookmark."
+      render :show
+    end
   end
 
   private
 
-def set_topic
-  @topic = Topic.find(params[:topic_id])
+  def set_topic
+    @topic = Topic.find(params[:topic_id])
+  end
 
-end
   def set_bookmark
-
     @bookmark = Bookmark.find(params[:id])
   end
 
